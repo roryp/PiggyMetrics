@@ -8,7 +8,7 @@
 **A simple way to deal with personal finances**
 
 This is a [proof-of-concept application](http://my-piggymetrics.rhcloud.com), which demonstrates [Microservice Architecture Pattern](http://martinfowler.com/microservices/) using Spring Boot, Spring Cloud and Docker.
-With a pretty neat user interface, by the way.
+With a pretty neat user interface, by the way. dude
 
 ![](https://cloud.githubusercontent.com/assets/6069066/13864234/442d6faa-ecb9-11e5-9929-34a9539acde0.png)
 ![Piggy Metrics](https://cloud.githubusercontent.com/assets/6069066/13830155/572e7552-ebe4-11e5-918f-637a49dff9a2.gif)
@@ -22,33 +22,33 @@ PiggyMetrics was decomposed into three core microservices. All of them are indep
 #### Account service
 Contains general user input logic and validation: incomes/expenses items, savings and account settings.
 
-Method	| Path	| Description	| User authenticated	| Available from UI
-------------- | ------------------------- | ------------- |:-------------:|:----------------:|
-GET	| /accounts/{account}	| Get specified account data	|  | 	
-GET	| /accounts/current	| Get current account data	| × | ×
-GET	| /accounts/demo	| Get demo account data (pre-filled incomes/expenses items, etc)	|   | 	×
-PUT	| /accounts/current	| Save current account data	| × | ×
-POST	| /accounts/	| Register new account	|   | ×
+| Method | Path                | Description                              | User authenticated | Available from UI |
+| ------ | ------------------- | ---------------------------------------- | :----------------: | :---------------: |
+| GET    | /accounts/{account} | Get specified account data               |                    |                   |
+| GET    | /accounts/current   | Get current account data                 |         ×          |         ×         |
+| GET    | /accounts/demo      | Get demo account data (pre-filled incomes/expenses items, etc) |                    |         ×         |
+| PUT    | /accounts/current   | Save current account data                |         ×          |         ×         |
+| POST   | /accounts/          | Register new account                     |                    |         ×         |
 
 
 #### Statistics service
 Performs calculations on major statistics parameters and captures time series for each account. Datapoint contains values, normalized to base currency and time period. This data is used to track cash flow dynamics in account lifetime (fancy charts not yet implemented in UI).
 
-Method	| Path	| Description	| User authenticated	| Available from UI
-------------- | ------------------------- | ------------- |:-------------:|:----------------:|
-GET	| /statistics/{account}	| Get specified account statistics	          |  | 	
-GET	| /statistics/current	| Get current account statistics	| × | × 
-GET	| /statistics/demo	| Get demo account statistics	|   | × 
-PUT	| /statistics/{account}	| Create or update time series datapoint for specified account	|   | 
+| Method | Path                  | Description                              | User authenticated | Available from UI |
+| ------ | --------------------- | ---------------------------------------- | :----------------: | :---------------: |
+| GET    | /statistics/{account} | Get specified account statistics         |                    |                   |
+| GET    | /statistics/current   | Get current account statistics           |         ×          |         ×         |
+| GET    | /statistics/demo      | Get demo account statistics              |                    |         ×         |
+| PUT    | /statistics/{account} | Create or update time series datapoint for specified account |                    |                   |
 
 
 #### Notification service
 Stores users contact information and notification settings (like remind and backup frequency). Scheduled worker collects required information from other services and sends e-mail messages to subscribed customers.
 
-Method	| Path	| Description	| User authenticated	| Available from UI
-------------- | ------------------------- | ------------- |:-------------:|:----------------:|
-GET	| /notifications/settings/current	| Get current account notification settings	| × | ×	
-PUT	| /notifications/settings/current	| Save current account notification settings	| × | ×
+| Method | Path                            | Description                              | User authenticated | Available from UI |
+| ------ | ------------------------------- | ---------------------------------------- | :----------------: | :---------------: |
+| GET    | /notifications/settings/current | Get current account notification settings |         ×          |         ×         |
+| PUT    | /notifications/settings/current | Save current account notification settings |         ×          |         ×         |
 
 #### Notes
 - Each microservice has it's own database, so there is no way to bypass API and access persistance data directly.
